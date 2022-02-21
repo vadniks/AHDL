@@ -1,0 +1,21 @@
+SUBDESIGN 'lab3_2'
+(
+clk, rst   : INPUT = GND;
+md         : INPUT = VCC;
+out [2..0] : OUTPUT;
+)
+VARIABLE
+count [2..0] : DFFE;
+BEGIN
+    IF USED (rst) GENERATE
+        count[].CLRn = !rst;
+    END GENERATE;
+
+    IF md
+    THEN count[].D = count[].Q+1;
+    ELSE count[].D = count[].Q-1;
+    END IF:
+
+    count[].CLK = clk;
+    out[]       = count[].Q;
+END;

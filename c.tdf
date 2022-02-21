@@ -1,0 +1,43 @@
+SUBDESIGN 'lab4_2'
+(
+    clk       : INPUT = VCC;
+    a, b      : INPUT = VCC;
+    out[3..0] : OUTPUT;
+)
+VARIABLE
+    cnt[3..0] : DFF;
+BEGIN
+    CASE (cnt[].Q) IS
+        WHEN 1 => cnt[].D = 12;
+        WHEN 12 => 
+        IF a 
+            THEN cnt[].D = 11;
+            ELSE cnt[].D = 13;
+        END IF;
+        WHEN 13 => cnt[].D = 4;
+        WHEN 4 => cnt[].D = 6;
+        WHEN 6 => 
+            IF b 
+                THEN cnt[].D = 7;
+                ELSE cnt[].D = 8;
+            END IF;
+        WHEN 8 => cnt[].D = 10;
+        WHEN 10 => cnt[].D = 14;
+        WHEN 14 => cnt[].D = 2;
+        WHEN 2 => cnt[].D = 9;
+        WHEN 9 => cnt[].D = 1;
+        WHEN 11 => cnt[].D = 3;
+        WHEN 3 => 
+            IF b 
+                THEN cnt[].D = 5;
+                ELSE cnt[].D = 0;
+            END IF;
+        WHEN 0 => cnt[].D = 15;
+        WHEN 15 => cnt[].D = 10;
+        WHEN 7 => cnt[].D = 10;
+        WHEN 5 => cnt[].D = 15;
+    END CASE;
+
+    cnt[].CLK = clk;
+    out[] = cnt[].Q;
+END;
